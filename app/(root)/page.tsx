@@ -6,7 +6,6 @@ import { users } from '@/database/schema';
 
 const Home = async () => {
   const result = await db.select().from(users);
-  console.log('🚀 ~ Home ~ result:', JSON.stringify(result, null, 2));
 
   return (
     <>
