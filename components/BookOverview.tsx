@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import { Button } from './ui/button';
 import BookCover from './BookCover';
 import BorrowBook from './BorrowBook';
 import { db } from '@/database/drizzle';
@@ -28,8 +27,6 @@ const BookOverview = async ({
     .from(users)
     .where(eq(users.id, userId))
     .limit(1);
-
-  if (!user) return null;
 
   const borrowingEligibilty = {
     isEligible: availableCopies > 0 && user.status === 'APPROVED',
@@ -70,11 +67,13 @@ const BookOverview = async ({
 
         <p className="book-description">{description}</p>
 
-        <BorrowBook
-          bookId={id}
-          userId={userId}
-          borrowingEligibilty={borrowingEligibilty}
-        />
+        {user && (
+          <BorrowBook
+            bookId={id}
+            userId={userId}
+            borrowingEligibilty={borrowingEligibilty}
+          />
+        )}
       </div>
 
       <div className="relative flex flex-1 justify-center">
