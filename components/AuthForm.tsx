@@ -17,12 +17,12 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from './ui/form';
-import { Input } from './ui/input';
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
 import { Button } from './ui/button';
 import Link from 'next/link';
 import { FIELD_NAMES, FIELD_TYPES } from '@/constants';
-import ImageUpload from './ImageUpload';
+import FileUpload from '@/components/FileUpload';
 import { toast } from '@/hooks/use-toast';
 import { useRouter } from 'next/navigation';
 
@@ -94,7 +94,14 @@ const AuthForm = <T extends FieldValues>({
                   </FormLabel>
                   <FormControl>
                     {field.name === 'universityCard' ? (
-                      <ImageUpload onFileChange={field.onChange} />
+                      <FileUpload
+                        type="image"
+                        accept="image/*"
+                        placeholder="Upload your university card"
+                        variant="dark"
+                        folder="ids"
+                        onFileChange={field.onChange}
+                      />
                     ) : (
                       <Input
                         required
